@@ -1,0 +1,70 @@
+<form [class.mat-elevation-z5]="true" 
+    class="guest-form" 
+    (ngSubmit)="onAddGuest()" >
+
+    <h3 class="field-text-title">Guest Form</h3>
+
+    <mat-form-field appearance="outline" class="field-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput 
+            placeholder="Guest's Name"
+            [(ngModel)]="guest.name"
+            name="name"
+        >
+        <mat-icon matSuffix>mode_edit</mat-icon>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="field-full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput 
+            placeholder="Guest's Last Name"
+            [(ngModel)]="guest.lastName"
+            name="lastName"
+            >
+        <mat-icon matSuffix>mode_edit</mat-icon>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="field-full-width">
+        <mat-label>Birthday</mat-label>
+        <input matInput 
+            placeholder="Guest's Birthday" 
+            [matDatepicker]="picker"
+            [(ngModel)]="guest.birthday"
+            name="birthday"
+            >
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="field-full-width">
+        <mat-label>Identification</mat-label>
+        <input matInput 
+            placeholder="Guest's Identification"
+            [(ngModel)]="guest.nationalIdentification"
+            name="nationalIdentification"
+            >
+        <mat-icon matSuffix>contact_page</mat-icon>
+    </mat-form-field>
+    
+    <button mat-flat-button 
+        color="primary" 
+        type="submit"
+        class="field-submit"
+        [disabled]="!isGuestNew"
+        >
+        Add Guest
+    </button>
+    <button mat-flat-button 
+        color="secondary" 
+        type="button"
+        class="field-submit"
+        [disabled]="isGuestNew"
+        (click)="onNewGuest()">
+        Create New Guest
+    </button>
+    <p style="flex: 1; min-width: 100%; padding: 10px 0;">
+        {{ guest | json }}
+        {{ isGuestNew }}
+    </p>
+    
+</form>

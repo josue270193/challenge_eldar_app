@@ -1,0 +1,21 @@
+.guest-form {    
+    height: calc(100% - 20px);
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;    
+
+}
+
+.field-text-title {
+    width: 100%;
+}
+
+.field-full-width {
+    min-width: calc(100% - 20px);
+    flex: 1;
+}
+
+.field-submit {
+    
+}

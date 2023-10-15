@@ -1,0 +1,98 @@
+<form [class.mat-elevation-z5]="true" 
+    class="party-form" 
+    #partyForm="ngForm" 
+    (ngSubmit)="onCreateParty()">
+
+    <h2 class="field-text-title">Party Form</h2>
+
+    <mat-form-field appearance="outline" class="field-50-width">
+        <mat-label>Name</mat-label>
+        <input matInput 
+            placeholder="Party's Name" 
+            [(ngModel)]="party.name" 
+            name="name"
+            required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+        <mat-error *ngIf="!party.name">
+            Name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field-50-width">
+        <mat-label>Date</mat-label>
+        <input matInput 
+            placeholder="Party's Date" 
+            [matDatepicker]="picker" 
+            [(ngModel)]="party.date" 
+            name="date"
+            required>
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+        <mat-error *ngIf="!party.date">
+            Date is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <div class="guest-form-container">
+        <guest-form class="guest-form-item"           
+            #guestForm
+            (addGuestHandler)="onAddGuest($event)" />
+
+        <div [class.mat-elevation-z5]="true" class="guest-form-item">
+            <div class="guest-list-container">
+                <h2>Guest not confirm</h2>
+                <div cdkDropList 
+                    #guestNotConfirmList="cdkDropList" 
+                    [cdkDropListData]="guestsNotConfirm"
+                    [cdkDropListConnectedTo]="[guestConfirmList]" 
+                    (cdkDropListDropped)="drop($event)"
+                    class="guest-list">
+                    <div class="guest-box" 
+                        *ngFor="let guest of guestsNotConfirm" 
+                        cdkDrag>
+                        {{ guest.name }}
+
+                        <button mat-icon-button 
+                            aria-label="Edit"
+                            (click)="onEditGuest(guest)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button 
+                            aria-label="Delete"
+                            (click)="onDeleteGuest(guest)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guest-list-container">
+                <h2>Guest confirm</h2>
+                <div cdkDropList 
+                    #guestConfirmList="cdkDropList" 
+                    [cdkDropListData]="party.guests"
+                    [cdkDropListConnectedTo]="[guestNotConfirmList]" 
+                    (cdkDropListDropped)="drop($event)"
+                    class="guest-list">
+                    <div class="guest-box" 
+                        *ngFor="let guest of party.guests" 
+                        cdkDrag>
+                        {{ guest.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button mat-flat-button 
+        color="primary" 
+        type="submit" 
+        [disabled]="!partyForm.valid" 
+        class="field-submit">
+        Create Party
+    </button>
+
+    <p style="flex: 1; min-width: 100%;">
+        {{ party | json }}        
+    </p>
+</form>
