@@ -93,8 +93,19 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://josue270193.github.io/challenge_eldar_app/",
+            "name": "Josue Lopez",
+            "email": "josue270193@gmail.com"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
